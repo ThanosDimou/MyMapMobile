@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>My_Map</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+        <link rel="stylesheet" href="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7/leaflet.css" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+        <style>
+            #map{ width: 900px; height: 500px; }
+            button {width: 100px;}
+        </style>
+    </head>
+    <body>
+        <button onclick="upload()">Upload Photo</button>
+        <button onclick="toggle()">Toggle POI</button>
+        <form>
+            <label for="latitude">Latitude:</label>
+            <input id="latitude" type="text" />
+            <label for="longitude">Longitude:</label>
+            <input id="longitude" type="text" />
+        </form>
+        <div id="map"></div>
+        <script>
+            var map = L.map('map').setView([0, 0], 1);
+ 
+            // load a tile layer
+            L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=gYww48tr73ihyOULiqVX',
+            {
+            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+            
+            }).addTo(map);
+            
+        //add more POI markers
+            var marker1 = L.marker([36.47209813242351, 22.97698259353638]).bindPopup("Ελαφόνησος"+"</br>" + '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Elafonisos_island_Simos_Beach.jpg/320px-Elafonisos_island_Simos_Beach.jpg" />' ).addTo(map);
+            var marker2 = L.marker([39.28953848865666, 21.740655899047855]).bindPopup("Λίμνη Πλαστήρα" + "</br>" + '<img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/%CE%9B%CE%AF%CE%BC%CE%BD%CE%B7_%CE%A0%CE%BB%CE%B1%CF%83%CF%84%CE%AE%CF%81%CE%B1.jpg/160px-%CE%9B%CE%AF%CE%BC%CE%BD%CE%B7_%CE%A0%CE%BB%CE%B1%CF%83%CF%84%CE%AE%CF%81%CE%B1.jpg" />').addTo(map);
+            var featureGroup = L.featureGroup([marker1,marker2]);
+         </script> 
+         <script>
+        //Trigger to remove or show POIs
+            function toggle(){
+                if(map.hasLayer(featureGroup)) {
+                    map.removeLayer(featureGroup);
+                }else{
+                    featureGroup.addTo(map);
+                }
+               // $(document).on('click','#toggleLayer',toggle); 
+            }     
+        </script>        
+        <script src="js/scripts.js"> </script> 
+    </body>
+</html>
